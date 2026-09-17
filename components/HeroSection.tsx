@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { IconCheck } from "./Icons";
 
 const STRIPE_LINK = "https://buy.stripe.com/5kQcN68Uoeugdu1axt9bO09";
 
@@ -31,19 +31,29 @@ export default function HeroSection() {
           <a href={STRIPE_LINK} className="cta-btn" target="_blank" rel="noopener noreferrer">
             Buy Now — $9.99 →
           </a>
-          <p className="guarantee-note">✓ 21-day money-back guarantee · ✓ Instant digital delivery</p>
+          <p className="guarantee-note">
+            <span className="note-item"><IconCheck size={16} color="var(--purple-primary)" /> 21-day money-back guarantee</span>
+            <span className="note-dot" />
+            <span className="note-item"><IconCheck size={16} color="var(--purple-primary)" /> Instant digital delivery</span>
+          </p>
         </div>
 
-        {/* Right: Image */}
+        {/* Right: Ad video — fills the framed drop box */}
         <div className="hero-image-wrap">
-          <Image
-            src="/lucia-hero.jpg"
-            alt="Lucia Giammarco Granier holding the Journal of Self-Discovery"
-            width={480}
-            height={620}
-            priority
-            className="hero-img"
-          />
+          <div className="hero-photo-frame">
+            <video
+              className="hero-video"
+              autoPlay
+              loop
+              muted
+              playsInline
+              controls
+              poster="/lucia-hero.jpg"
+            >
+              <source src="/ad-1.mp4" type="video/mp4" />
+              Your browser does not support video playback.
+            </video>
+          </div>
         </div>
       </div>
     </section>

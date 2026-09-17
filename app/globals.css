@@ -100,6 +100,69 @@ a {
   color: var(--purple-primary);
 }
 
+/* ── SCROLL REVEAL ANIMATIONS ───────────────────────── */
+.scroll-reveal {
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.scroll-reveal.reveal-up {
+  transform: translateY(28px);
+}
+
+.scroll-reveal.reveal-left {
+  transform: translateX(-32px);
+}
+
+.scroll-reveal.reveal-right {
+  transform: translateX(32px);
+}
+
+.scroll-reveal.reveal-fade {
+  transform: none;
+}
+
+.scroll-reveal.reveal-scale {
+  transform: scale(0.94);
+}
+
+.scroll-reveal.revealed {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── ICON BADGES ────────────────────────────────────── */
+.icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  color: var(--purple-primary);
+}
+
+.icon-badge--light {
+  background: linear-gradient(135deg, #f1e8ff 0%, #e6d7ff 100%);
+  border: 1px solid rgba(123, 47, 190, 0.18);
+}
+
+.icon-badge--dark {
+  background: rgba(151, 71, 255, 0.14);
+  border: 1px solid rgba(151, 71, 255, 0.4);
+  color: var(--purple-light);
+}
+
 /* ── CTA Button ────────────────────────────────────── */
 .cta-btn {
   display: inline-block;
@@ -214,9 +277,27 @@ a {
 }
 
 .guarantee-note {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
   font-size: 0.82rem;
   color: var(--text-dark-muted);
   margin-top: 0.75rem;
+}
+
+.note-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.note-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--text-dark-muted);
+  opacity: 0.5;
 }
 
 .hero-image-wrap {
@@ -226,14 +307,28 @@ a {
   position: relative;
 }
 
-.hero-img {
-  border-radius: 20px;
-  object-fit: cover;
-  box-shadow: 0 20px 60px rgba(123, 47, 190, 0.25);
+.hero-photo-frame {
+  position: relative;
   width: 100%;
-  height: auto;
-  max-height: 620px;
-  object-position: top;
+  max-width: 440px;
+  aspect-ratio: 4 / 5;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(123, 47, 190, 0.3);
+  border: 1px solid rgba(123, 47, 190, 0.18);
+  background: #000;
+}
+
+.hero-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.hero-photo-frame video::-webkit-media-controls {
+  z-index: 2;
 }
 
 /* ── PROBLEM SECTION ───────────────────────────────── */
@@ -333,10 +428,21 @@ a {
 }
 
 .journal-glow {
+  width: 100%;
+  position: relative;
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 0 60px rgba(123, 47, 190, 0.25),
     0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.lucia-photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  min-height: 320px;
+  border-radius: 20px;
+  overflow: hidden;
 }
 
 .journal-img {
@@ -487,7 +593,9 @@ a {
 }
 
 .guarantee-icon {
-  font-size: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-bottom: 1rem;
 }
 
@@ -579,14 +687,96 @@ a {
   line-height: 1.6;
 }
 
-.pricing-includes li {
-  padding-left: 0.25rem;
+.pricing-include-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.pricing-check {
+  display: inline-flex;
+  flex-shrink: 0;
+  margin-top: 1px;
 }
 
 .pricing-secure {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
   font-size: 0.8rem;
   color: var(--text-muted);
   margin-top: 1rem;
+}
+
+/* ── THANK YOU / DOWNLOAD PAGE ──────────────────────── */
+.ty-page {
+  background: var(--gradient-pricing);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ty-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: var(--section-py) 1.5rem;
+}
+
+.ty-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(151, 71, 255, 0.4);
+  border-radius: 24px;
+  padding: 3.5rem 2.5rem;
+  max-width: 640px;
+  margin: 0 auto;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(151, 71, 255, 0.15);
+}
+
+.ty-icon {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.ty-headline {
+  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 2rem;
+}
+
+.download-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: auto;
+  justify-content: center;
+}
+
+.ty-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.ty-back {
+  display: inline-block;
+  margin-top: 1.5rem;
+  color: var(--purple-light);
+  font-size: 0.85rem;
+  transition: opacity 0.2s ease;
+}
+
+.ty-back:hover {
+  opacity: 0.75;
+  text-decoration: underline;
 }
 
 /* ── FOOTER ────────────────────────────────────────── */
@@ -677,8 +867,8 @@ a {
     --section-py: 3.5rem;
   }
 
-  .hero-img,
-  .journal-img {
+  .hero-photo-frame,
+  .lucia-photo-frame {
     border-radius: 12px;
   }
 
