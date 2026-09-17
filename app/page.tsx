@@ -2,6 +2,7 @@ import HeroSection from "@/components/HeroSection";
 import ProblemSection from "@/components/ProblemSection";
 import SolutionSection from "@/components/SolutionSection";
 import ForYouSection from "@/components/ForYouSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import GuaranteeSection from "@/components/GuaranteeSection";
 import PricingCTA from "@/components/PricingCTA";
 import Footer from "@/components/Footer";
@@ -13,6 +14,7 @@ export default function Home() {
       <ProblemSection />
       <SolutionSection />
       <ForYouSection />
+      <TestimonialsSection />
       <GuaranteeSection />
       <PricingCTA />
       <Footer />

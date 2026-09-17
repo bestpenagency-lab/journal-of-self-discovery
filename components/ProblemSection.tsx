@@ -16,7 +16,7 @@ export default function ProblemSection() {
             <p className="problem-line accent">
               You&apos;re not overthinking.{" "}
               <span className="purple-text">
-                Your brain is stuck in survival mode — and it&apos;s running the show.
+                Your brain is stuck in survival mode, and it&apos;s running the show.
               </span>
             </p>
           </div>
@@ -36,7 +36,7 @@ export default function ProblemSection() {
             </div>
             <div className="stat-divider" />
             <div className="stat-item">
-              <span className="stat-num">6–7</span>
+              <span className="stat-num">6-7</span>
               <span className="stat-label">Figure coaching clients</span>
             </div>
           </div>

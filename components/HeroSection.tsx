@@ -1,4 +1,5 @@
 import { IconCheck } from "./Icons";
+import HeroVideo from "./HeroVideo";
 
 const STRIPE_LINK = "https://buy.stripe.com/5kQcN68Uoeugdu1axt9bO09";
 
@@ -29,7 +30,7 @@ export default function HeroSection() {
           </div>
 
           <a href={STRIPE_LINK} className="cta-btn" target="_blank" rel="noopener noreferrer">
-            Buy Now — $9.99 →
+            Buy Now: $9.99 →
           </a>
           <p className="guarantee-note">
             <span className="note-item"><IconCheck size={16} color="var(--purple-primary)" /> 21-day money-back guarantee</span>
@@ -38,22 +39,9 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* Right: Ad video — fills the framed drop box */}
+        {/* Right: Ad video fills the framed drop box */}
         <div className="hero-image-wrap">
-          <div className="hero-photo-frame">
-            <video
-              className="hero-video"
-              autoPlay
-              loop
-              muted
-              playsInline
-              controls
-              poster="/lucia-hero.jpg"
-            >
-              <source src="/ad-1.mp4" type="video/mp4" />
-              Your browser does not support video playback.
-            </video>
-          </div>
+          <HeroVideo />
         </div>
       </div>
     </section>

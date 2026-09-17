@@ -8,7 +8,7 @@ const includes = [
   "Saboteur Assessment + PQ Exercises",
   "Reflection Questionnaires & Emotion Journaling",
   "Progress Trackers",
-  "21-day guarantee — free 1:1 if not satisfied",
+  "21-day guarantee: free 1:1 if not satisfied",
 ];
 
 export default function PricingCTA() {

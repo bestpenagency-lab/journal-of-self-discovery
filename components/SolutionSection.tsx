@@ -43,7 +43,7 @@ export default function SolutionSection() {
     <section className="solution-section">
       <div className="section-inner solution-grid">
 
-        {/* Left: Lucia's photo — black edges cropped via objectPosition + overflow:hidden */}
+        {/* Left: Lucia's photo, black edges cropped via objectPosition + overflow:hidden */}
         <ScrollReveal direction="right" delay={0}>
           <div className="solution-image-wrap">
             <div className="journal-glow">
@@ -81,7 +81,7 @@ export default function SolutionSection() {
             </h2>
             <p className="solution-desc">
               Built by ICF-certified brain coach{" "}
-              <strong>Lucia Giammarco Granier</strong> and used by her 6–7
+              <strong>Lucia Giammarco Granier</strong> and used by her 6-7
               figure coaching clients for over 10 years.
             </p>
           </ScrollReveal>
@@ -95,7 +95,7 @@ export default function SolutionSection() {
                   </div>
                   <div>
                     <strong className="feature-title">{title}</strong>
-                    <span className="feature-desc"> — {desc}</span>
+                    <span className="feature-desc">: {desc}</span>
                   </div>
                 </div>
               </ScrollReveal>
@@ -109,7 +109,7 @@ export default function SolutionSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Get Your Journal — $9.99 →
+              Get Your Journal: $9.99 →
             </a>
           </ScrollReveal>
         </div>

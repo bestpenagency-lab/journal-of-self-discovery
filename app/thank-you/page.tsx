@@ -7,7 +7,7 @@ import { IconCheck, IconDownload } from "@/components/Icons";
 const PDF_PATH = "/journal-of-self-discovery.pdf";
 
 export const metadata: Metadata = {
-  title: "You're In — Download Your Journal of Self-Discovery",
+  title: "You're In: Download Your Journal of Self-Discovery",
   description:
     "Your Journal of Self-Discovery is ready to download. 21 days to rewire your brain for clarity.",
 };

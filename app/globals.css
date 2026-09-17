@@ -1,5 +1,5 @@
 /* =====================================================
-   JOURNAL OF SELF-DISCOVERY — GLOBAL STYLES
+   JOURNAL OF SELF-DISCOVERY: GLOBAL STYLES
    Brand: Mind Shift Lab / Lucia Giammarco Granier
    Colors extracted from mindshiftlabconsulting.com
    ===================================================== */
@@ -329,6 +329,32 @@ a {
 
 .hero-photo-frame video::-webkit-media-controls {
   z-index: 2;
+}
+
+.sound-toggle {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  background: rgba(13, 11, 31, 0.72);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 50px;
+  padding: 0.45rem 0.95rem;
+  font-family: var(--font-inter);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.sound-toggle:hover {
+  background: rgba(123, 47, 190, 0.92);
+  transform: translateY(-1px);
 }
 
 /* ── PROBLEM SECTION ───────────────────────────────── */
@@ -831,6 +857,94 @@ a {
   color: rgba(255, 255, 255, 0.3);
 }
 
+/* ── TESTIMONIALS SECTION ──────────────────────────── */
+.testimonials-section {
+  background: var(--bg-lavender);
+  padding: var(--section-py) 1.5rem;
+  text-align: center;
+}
+
+.testimonials-headline {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text-dark);
+}
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  text-align: left;
+}
+
+.testimonial-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+  border: 1px solid rgba(123, 47, 190, 0.12);
+  border-radius: var(--border-radius);
+  padding: 1.75rem 1.5rem;
+  box-shadow: 0 6px 24px rgba(13, 11, 31, 0.06);
+}
+
+.testimonial-stars {
+  display: flex;
+  gap: 0.15rem;
+  margin-bottom: 0.9rem;
+}
+
+.testimonial-text {
+  flex: 1;
+  color: var(--text-dark);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  margin-bottom: 1.25rem;
+}
+
+.testimonial-person {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-top: 1px solid rgba(123, 47, 190, 0.1);
+  padding-top: 1rem;
+}
+
+.testimonial-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--gradient-cta);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+  letter-spacing: 0.02em;
+}
+
+.testimonial-avatar--photo {
+  object-fit: cover;
+}
+
+.testimonial-name {
+  display: block;
+  color: var(--text-dark);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.testimonial-role {
+  display: block;
+  color: var(--purple-primary);
+  font-size: 0.78rem;
+  margin-top: 0.1rem;
+}
+
 /* ── RESPONSIVE ────────────────────────────────────── */
 @media (max-width: 900px) {
   .hero-inner,
@@ -849,6 +963,10 @@ a {
   }
 
   .target-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .testimonial-grid {
     grid-template-columns: 1fr;
   }
 

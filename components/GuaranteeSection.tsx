@@ -21,8 +21,8 @@ export default function GuaranteeSection() {
               with Lucia. No questions asked. No risk.
             </p>
             <p className="guarantee-sub">
-              Lucia has coached 6–7 figure clients for over 10 years using this
-              exact system. She&apos;s confident it works — and she&apos;s backing it with
+              Lucia has coached 6-7 figure clients for over 10 years using this
+              exact system. She&apos;s confident it works, and she&apos;s backing it with
               her time.
             </p>
             <a
@@ -31,7 +31,7 @@ export default function GuaranteeSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Claim Your Journal — $9.99 →
+              Claim Your Journal: $9.99 →
             </a>
           </div>
         </ScrollReveal>

@@ -1,4 +1,4 @@
-/* ── SVG Icon Kit — Journal of Self-Discovery
+/* ── SVG Icon Kit: Journal of Self-Discovery
    All icons: 24×24 viewBox, stroke-based, brand purple
    ─────────────────────────────────────────────────── */
 
@@ -14,7 +14,7 @@ const defaultProps = {
   strokeWidth: 1.6,
 };
 
-/* Crosshair / Target — Saboteur Assessment */
+/* Crosshair / Target: Saboteur Assessment */
 export function IconTarget({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -29,7 +29,7 @@ export function IconTarget({ size = defaultProps.size, color = defaultProps.colo
   );
 }
 
-/* Document with lines — Reflection Questionnaires */
+/* Document with lines: Reflection Questionnaires */
 export function IconReflection({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -42,7 +42,7 @@ export function IconReflection({ size = defaultProps.size, color = defaultProps.
   );
 }
 
-/* Heart with pulse line — Emotion Journaling */
+/* Heart with pulse line: Emotion Journaling */
 export function IconHeartPulse({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -52,7 +52,7 @@ export function IconHeartPulse({ size = defaultProps.size, color = defaultProps.
   );
 }
 
-/* Rising bar chart — Progress Trackers */
+/* Rising bar chart: Progress Trackers */
 export function IconBarChart({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -65,7 +65,7 @@ export function IconBarChart({ size = defaultProps.size, color = defaultProps.co
   );
 }
 
-/* Neural rewire arrows — PQ Exercises */
+/* Neural rewire arrows: PQ Exercises */
 export function IconRewire({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -77,7 +77,7 @@ export function IconRewire({ size = defaultProps.size, color = defaultProps.colo
   );
 }
 
-/* Lightning bolt — High-performing / Energy */
+/* Lightning bolt: High-performing / Energy */
 export function IconLightning({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -86,7 +86,7 @@ export function IconLightning({ size = defaultProps.size, color = defaultProps.c
   );
 }
 
-/* Brain waves — Overthinking */
+/* Brain waves: Overthinking */
 export function IconBrainWave({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -98,7 +98,7 @@ export function IconBrainWave({ size = defaultProps.size, color = defaultProps.c
   );
 }
 
-/* Compass — Meant for more / Direction */
+/* Compass: Meant for more / Direction */
 export function IconCompass({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -108,7 +108,7 @@ export function IconCompass({ size = defaultProps.size, color = defaultProps.col
   );
 }
 
-/* Shield with checkmark — Guarantee */
+/* Shield with checkmark: Guarantee */
 export function IconShield({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -118,7 +118,7 @@ export function IconShield({ size = defaultProps.size, color = defaultProps.colo
   );
 }
 
-/* Checkmark in a circle — Included / Verified items */
+/* Checkmark in a circle: Included / Verified items */
 export function IconCheck({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -128,7 +128,7 @@ export function IconCheck({ size = defaultProps.size, color = defaultProps.color
   );
 }
 
-/* Padlock — Secure checkout */
+/* Padlock: Secure checkout */
 export function IconLock({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
@@ -138,13 +138,33 @@ export function IconLock({ size = defaultProps.size, color = defaultProps.color,
   );
 }
 
-/* Download arrow into tray — Download Now */
+/* Download arrow into tray: Download Now */
 export function IconDownload({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
       <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
       <polyline points="7 10 12 15 17 10" />
       <line x1="12" y1="15" x2="12" y2="3" />
+    </svg>
+  );
+}
+
+/* Filled star: testimonial ratings */
+export function IconStar({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill={color} stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+
+/* Speaker with sound waves: unmute video */
+export function IconVolume({ size = defaultProps.size, color = defaultProps.color, strokeWidth = defaultProps.strokeWidth }: IconProps) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth={strokeWidth} strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5" />
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07" />
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14" />
     </svg>
   );
 }
