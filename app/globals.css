@@ -862,6 +862,13 @@ a {
   }
 }
 
+/* Phones only: copy first, video below. Tablet (641-900px) keeps video-first. */
+@media (max-width: 640px) {
+  .hero-image-wrap {
+    order: 0;
+  }
+}
+
 @media (max-width: 480px) {
   :root {
     --section-py: 3.5rem;
