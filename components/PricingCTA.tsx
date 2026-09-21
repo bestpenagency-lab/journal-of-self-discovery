@@ -1,7 +1,7 @@
 import ScrollReveal from "./ScrollReveal";
 import { IconCheck, IconLock } from "./Icons";
 
-const STRIPE_LINK = "https://buy.stripe.com/5kQcN68Uoeugdu1axt9bO09";
+const STRIPE_LINK = "https://buy.stripe.com/7sYeVe3A41HublT20X9bO0a";
 
 const includes = [
   "Full 21-day Journal of Self-Discovery",
