@@ -32,10 +32,36 @@ export default function MetaPixel() {
   };
 
   const firePurchaseOnce = () => {
-    if (!sessionStorage.getItem(PURCHASE_KEY)) {
-      sessionStorage.setItem(PURCHASE_KEY, "1");
-      track("Purchase", { value: PURCHASE_VALUE, currency: "USD" });
+    if (sessionStorage.getItem(PURCHASE_KEY)) return;
+    sessionStorage.setItem(PURCHASE_KEY, "1");
+    const eventId =
+      typeof crypto !== "undefined" && "randomUUID" in crypto
+        ? crypto.randomUUID()
+        : `p_${Date.now()}`;
+
+    if (typeof window.fbq === "function") {
+      window.fbq(
+        "track",
+        "Purchase",
+        { value: PURCHASE_VALUE, currency: "USD" },
+        { eventID: eventId }
+      );
     }
+
+    fetch("/api/meta-capi", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "x-relay-secret": process.env.NEXT_PUBLIC_META_CAPI_RELAY_SECRET ?? "",
+      },
+      body: JSON.stringify({
+        event_name: "Purchase",
+        event_id: eventId,
+        value: PURCHASE_VALUE,
+        currency: "USD",
+        email: "",
+      }),
+    }).catch(() => {});
   };
 
   useEffect(() => {
