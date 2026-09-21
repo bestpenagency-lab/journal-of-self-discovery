@@ -31,7 +31,7 @@ export default function GuaranteeSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Claim Your Journal: $9.99 →
+              Claim Your Journal: $9.97 →
             </a>
           </div>
         </ScrollReveal>

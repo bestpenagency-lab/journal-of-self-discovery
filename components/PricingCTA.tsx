@@ -28,7 +28,7 @@ export default function PricingCTA() {
           <div className="pricing-card">
             <div className="price-row">
               <span className="price-old">$29</span>
-              <span className="price-new">$9.99</span>
+              <span className="price-new">$9.97</span>
             </div>
             <p className="price-caption">Launch price · Limited availability</p>
 

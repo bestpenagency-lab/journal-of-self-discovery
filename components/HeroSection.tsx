@@ -25,12 +25,12 @@ export default function HeroSection() {
           {/* Price preview */}
           <div className="price-preview">
             <span className="old-price">$29</span>
-            <span className="new-price">$9.99</span>
+            <span className="new-price">$9.97</span>
             <span className="launch-badge">Launch Price</span>
           </div>
 
           <a href={STRIPE_LINK} className="cta-btn" target="_blank" rel="noopener noreferrer">
-            Buy Now: $9.99 →
+            Buy Now: $9.97 →
           </a>
           <p className="guarantee-note">
             <span className="note-item"><IconCheck size={16} color="var(--purple-primary)" /> 21-day money-back guarantee</span>

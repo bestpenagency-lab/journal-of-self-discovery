@@ -109,7 +109,7 @@ export default function SolutionSection() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Get Your Journal: $9.99 →
+              Get Your Journal: $9.97 →
             </a>
           </ScrollReveal>
         </div>
