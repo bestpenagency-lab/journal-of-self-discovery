@@ -3,6 +3,13 @@
 import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 
+function getCookie(name: string) {
+  const match = document.cookie.match(
+    new RegExp("(?:^|; )" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "=([^;]*)")
+  );
+  return match ? decodeURIComponent(match[1]) : "";
+}
+
 const PURCHASE_VALUE = 9.97;
 
 declare global {
@@ -60,6 +67,8 @@ export default function MetaPixel() {
         value: PURCHASE_VALUE,
         currency: "USD",
         email: "",
+        fbp: getCookie("_fbp"),
+        fbc: getCookie("_fbc"),
       }),
     }).catch(() => {});
   };
