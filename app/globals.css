@@ -782,6 +782,19 @@ a {
   justify-content: center;
 }
 
+.download-btn--disabled {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+button.cta-btn {
+  font: inherit;
+  border: none;
+  -webkit-appearance: none;
+  appearance: none;
+  text-align: center;
+}
+
 .ty-note {
   display: flex;
   align-items: center;

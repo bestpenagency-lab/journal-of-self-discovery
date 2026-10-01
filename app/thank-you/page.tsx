@@ -2,9 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import ScrollReveal from "@/components/ScrollReveal";
 import Footer from "@/components/Footer";
-import { IconCheck, IconDownload } from "@/components/Icons";
-
-const PDF_PATH = "/journal-of-self-discovery.pdf";
+import { IconCheck } from "@/components/Icons";
+import ThankYouGate from "@/components/ThankYouGate";
 
 export const metadata: Metadata = {
   title: "You're In: Download Your Journal of Self-Discovery",
@@ -32,19 +31,7 @@ export default function ThankYouPage() {
                 </span>
               </h1>
 
-              <a
-                href={PDF_PATH}
-                download
-                className="cta-btn cta-btn--large download-btn"
-              >
-                <IconDownload size={20} color="#fff" strokeWidth={1.8} />
-                Download Now
-              </a>
-
-              <p className="ty-note">
-                <IconCheck size={16} color="var(--purple-light)" strokeWidth={1.8} />
-                <span>A backup copy has also been sent to your email.</span>
-              </p>
+              <ThankYouGate />
 
               <Link href="/" className="ty-back">
                 ← Back to homepage
