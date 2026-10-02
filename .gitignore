@@ -36,6 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local-only handoff docs
+META_PIXEL_HANDOFF.md
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
