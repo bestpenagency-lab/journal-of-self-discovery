@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from "crypto";
 import { NextResponse } from "next/server";
-import { deliverToKit, signDownloadLink } from "@/lib/access";
+import { deliverToKit, sendCapiPurchase, signDownloadLink } from "@/lib/access";
 
 interface CheckoutEvent {
   type?: string;
@@ -8,7 +8,7 @@ interface CheckoutEvent {
     object?: {
       id?: string;
       payment_status?: string;
-      customer_details?: { email?: string } | null;
+      customer_details?: { email?: string; name?: string } | null;
     };
   };
 }
@@ -70,5 +70,16 @@ export async function POST(request: Request) {
   const downloadLink = signDownloadLink(email, session.id);
   const delivery = await deliverToKit(email, downloadLink);
 
-  return NextResponse.json({ ok: true, received: true, delivered: delivery.ok });
+  const capi = await sendCapiPurchase(
+    session.id,
+    email,
+    session.customer_details?.name ?? ""
+  );
+
+  return NextResponse.json({
+    ok: true,
+    received: true,
+    delivered: delivery.ok,
+    capi: capi.ok ? { ok: true } : { ok: false, upstream: capi.upstream },
+  });
 }

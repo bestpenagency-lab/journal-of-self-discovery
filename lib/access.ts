@@ -1,4 +1,4 @@
-import { createHmac, timingSafeEqual } from "crypto";
+import { createHash, createHmac, timingSafeEqual } from "crypto";
 
 export const SITE_URL = "https://journal.mindshiftlabconsulting.com";
 export const PDF_PATH = "/journal-of-self-discovery.pdf";
@@ -38,6 +38,77 @@ export function verifyDownloadLink(email: string, sessionId: string, token: stri
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
+export function sha256(value: string) {
+  return createHash("sha256").update(value).digest("hex");
+}
+
+export function purchaseEventId(sessionId: string) {
+  return `stripe_${sessionId}`;
+}
+
+export interface HashedCustomer {
+  em: string;
+  fn: string;
+  ln: string;
+}
+
+export function hashCustomer(email: string, name: string): HashedCustomer {
+  const parts = (name ?? "").trim().split(/\s+/).filter(Boolean);
+  const firstName = parts[0] ?? "";
+  const lastName = parts.slice(1).join(" ");
+  return {
+    em: email.trim() ? sha256(email.trim().toLowerCase()) : "",
+    fn: firstName ? sha256(firstName.toLowerCase()) : "",
+    ln: lastName ? sha256(lastName.toLowerCase()) : "",
+  };
+}
+
+export async function sendCapiPurchase(sessionId: string, email: string, name: string) {
+  const token = process.env.META_CONVERSATIONS_API_TOKEN ?? "";
+  const PIXEL_ID = "3549766651863161";
+  if (!token || !sessionId) return { ok: false, upstream: "not_configured" };
+
+  const hashed = hashCustomer(email, name);
+  const user_data: Record<string, string> = {};
+  if (hashed.em) user_data.em = hashed.em;
+  if (hashed.fn) user_data.fn = hashed.fn;
+  if (hashed.ln) user_data.ln = hashed.ln;
+
+  const url = new URL(`https://graph.facebook.com/v21.0/${PIXEL_ID}/events`);
+  url.searchParams.set("access_token", token);
+  const test = process.env.META_TEST_EVENT_CODE?.trim();
+  if (test) url.searchParams.set("test_event_code", test);
+
+  const event = {
+    event_name: "Purchase",
+    event_time: Math.floor(Date.now() / 1000),
+    event_id: purchaseEventId(sessionId),
+    action_source: "website",
+    user_data,
+    custom_data: {
+      value: 9.97,
+      currency: "USD",
+      content_name: "Journal of Self-Discovery",
+      content_type: "product",
+    },
+  };
+
+  let upstream = "";
+  let ok = false;
+  try {
+    const res = await fetch(url.toString(), {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ data: [event] }),
+    });
+    upstream = await res.text();
+    ok = res.ok;
+  } catch (error) {
+    upstream = error instanceof Error ? error.message : "fetch_failed";
+  }
+  return { ok, upstream };
+}
+
 export async function getStripeSession(sessionId: string) {
   const key = process.env.STRIPE_SECRET_KEY ?? "";
   if (!key) return null;
@@ -54,7 +125,7 @@ export async function getStripeSession(sessionId: string) {
 
   const session: {
     payment_status?: string;
-    customer_details?: { email?: string } | null;
+    customer_details?: { email?: string; name?: string } | null;
   } = await res.json();
 
   return session;

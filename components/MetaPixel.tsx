@@ -47,7 +47,6 @@ function getClientId() {
 }
 
 const LEAD_KEY = "msl_pixel_lead";
-const PURCHASE_KEY = "msl_pixel_purchase";
 
 function relayEvent(payload: Record<string, unknown>) {
   fetch("/api/meta-capi", {
@@ -79,27 +78,8 @@ export default function MetaPixel() {
     });
   };
 
-  const firePurchaseOnce = () => {
-    if (sessionStorage.getItem(PURCHASE_KEY)) return;
-    sessionStorage.setItem(PURCHASE_KEY, "1");
-    const eventId = uid("p");
-
-    track("Purchase", { value: PURCHASE_VALUE, currency: "USD" }, { eventID: eventId });
-    relayEvent({
-      event_name: "Purchase",
-      event_id: eventId,
-      value: PURCHASE_VALUE,
-      currency: "USD",
-      email: "",
-      external_id: getClientId(),
-      fbp: getCookie("_fbp"),
-      fbc: getCookie("_fbc"),
-    });
-  };
-
   useEffect(() => {
     if (pathname === "/") fireLeadOnce();
-    if (pathname === "/thank-you") firePurchaseOnce();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -110,15 +90,42 @@ export default function MetaPixel() {
     }
     track("PageView");
     if (pathname === "/") fireLeadOnce();
-    if (pathname === "/thank-you") firePurchaseOnce();
   }, [pathname]);
 
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
       if (!target?.closest?.('a[href*="buy.stripe.com"]')) return;
-      track("AddToCart");
-      track("InitiateCheckout", { value: PURCHASE_VALUE, currency: "USD" });
+
+      const addId = uid("a");
+      const initId = uid("i");
+      const fbp = getCookie("_fbp");
+      const fbc = getCookie("_fbc");
+      const external_id = getClientId();
+
+      track("AddToCart", undefined, { eventID: addId });
+      relayEvent({
+        event_name: "AddToCart",
+        event_id: addId,
+        external_id,
+        fbp,
+        fbc,
+      });
+
+      track(
+        "InitiateCheckout",
+        { value: PURCHASE_VALUE, currency: "USD" },
+        { eventID: initId }
+      );
+      relayEvent({
+        event_name: "InitiateCheckout",
+        event_id: initId,
+        value: PURCHASE_VALUE,
+        currency: "USD",
+        external_id,
+        fbp,
+        fbc,
+      });
     };
     document.addEventListener("click", onClick);
     return () => document.removeEventListener("click", onClick);

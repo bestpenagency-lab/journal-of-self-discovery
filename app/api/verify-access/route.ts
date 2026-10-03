@@ -1,5 +1,11 @@
 import { NextResponse } from "next/server";
-import { deliverToKit, getStripeSession, signDownloadLink } from "@/lib/access";
+import {
+  deliverToKit,
+  getStripeSession,
+  hashCustomer,
+  purchaseEventId,
+  signDownloadLink,
+} from "@/lib/access";
 
 export async function POST(request: Request) {
   if (!process.env.STRIPE_SECRET_KEY || !process.env.KIT_API_KEY) {
@@ -30,7 +36,13 @@ export async function POST(request: Request) {
   const email = session.customer_details?.email?.trim() ?? "";
 
   if (!email) {
-    return NextResponse.json({ ok: true, downloadUrl: null, emailed: false, reason: "no_email" });
+    return NextResponse.json({
+      ok: true,
+      downloadUrl: null,
+      emailed: false,
+      reason: "no_email",
+      purchaseEventId: purchaseEventId(sessionId),
+    });
   }
 
   const downloadLink = signDownloadLink(email, sessionId);
@@ -41,5 +53,7 @@ export async function POST(request: Request) {
     downloadUrl: downloadLink,
     emailed: delivery.ok,
     fieldConfigured: delivery.fieldConfigured,
+    purchaseEventId: purchaseEventId(sessionId),
+    userData: hashCustomer(email, session.customer_details?.name ?? ""),
   });
 }
