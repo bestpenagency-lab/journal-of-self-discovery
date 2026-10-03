@@ -10,6 +10,7 @@ const ALLOWED_EVENTS = new Set([
   "Lead",
   "AddToCart",
   "InitiateCheckout",
+  "ViewContent",
 ]);
 
 function sha256(value: string) {

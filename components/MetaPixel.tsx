@@ -47,6 +47,7 @@ function getClientId() {
 }
 
 const LEAD_KEY = "msl_pixel_lead";
+const VIEW_KEY = "msl_pixel_view";
 
 function relayEvent(payload: Record<string, unknown>) {
   fetch("/api/meta-capi", {
@@ -78,7 +79,34 @@ export default function MetaPixel() {
     });
   };
 
+  const fireViewOnce = () => {
+    if (sessionStorage.getItem(VIEW_KEY)) return;
+    sessionStorage.setItem(VIEW_KEY, "1");
+    const eventId = uid("v");
+
+    track(
+      "ViewContent",
+      {
+        value: PURCHASE_VALUE,
+        currency: "USD",
+        content_name: "Journal of Self-Discovery",
+        content_type: "product",
+      },
+      { eventID: eventId }
+    );
+    relayEvent({
+      event_name: "ViewContent",
+      event_id: eventId,
+      value: PURCHASE_VALUE,
+      currency: "USD",
+      external_id: getClientId(),
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc"),
+    });
+  };
+
   useEffect(() => {
+    if (pathname === "/") fireViewOnce();
     if (pathname === "/") fireLeadOnce();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -89,6 +117,7 @@ export default function MetaPixel() {
       return;
     }
     track("PageView");
+    if (pathname === "/") fireViewOnce();
     if (pathname === "/") fireLeadOnce();
   }, [pathname]);
 
