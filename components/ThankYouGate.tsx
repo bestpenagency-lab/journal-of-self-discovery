@@ -10,7 +10,7 @@ interface VerifyResult {
   downloadUrl?: string | null;
   emailed?: boolean;
   purchaseEventId?: string;
-  userData?: { em?: string; fn?: string; ln?: string };
+  userData?: { em?: string; fn?: string; ln?: string; ph?: string };
 }
 
 function getCookie(name: string) {
@@ -56,6 +56,7 @@ function firePurchase(result: VerifyResult) {
   if (result.userData?.em) payload.em = result.userData.em;
   if (result.userData?.fn) payload.fn = result.userData.fn;
   if (result.userData?.ln) payload.ln = result.userData.ln;
+  if (result.userData?.ph) payload.ph = result.userData.ph;
 
   if (typeof window.fbq === "function") {
     window.fbq("track", "Purchase", { value: 9.97, currency: "USD" }, { eventID: eventId });

@@ -8,7 +8,7 @@ interface CheckoutEvent {
     object?: {
       id?: string;
       payment_status?: string;
-      customer_details?: { email?: string; name?: string } | null;
+      customer_details?: { email?: string; name?: string; phone?: string } | null;
     };
   };
 }
@@ -73,7 +73,8 @@ export async function POST(request: Request) {
   const capi = await sendCapiPurchase(
     session.id,
     email,
-    session.customer_details?.name ?? ""
+    session.customer_details?.name ?? "",
+    session.customer_details?.phone ?? ""
   );
 
   return NextResponse.json({

@@ -54,6 +54,10 @@ export async function POST(request: Request) {
     emailed: delivery.ok,
     fieldConfigured: delivery.fieldConfigured,
     purchaseEventId: purchaseEventId(sessionId),
-    userData: hashCustomer(email, session.customer_details?.name ?? ""),
+    userData: hashCustomer(
+      email,
+      session.customer_details?.name ?? "",
+      session.customer_details?.phone ?? ""
+    ),
   });
 }

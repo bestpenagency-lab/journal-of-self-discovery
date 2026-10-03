@@ -50,29 +50,33 @@ export interface HashedCustomer {
   em: string;
   fn: string;
   ln: string;
+  ph: string;
 }
 
-export function hashCustomer(email: string, name: string): HashedCustomer {
+export function hashCustomer(email: string, name: string, phone = ""): HashedCustomer {
   const parts = (name ?? "").trim().split(/\s+/).filter(Boolean);
   const firstName = parts[0] ?? "";
   const lastName = parts.slice(1).join(" ");
+  const digits = (phone ?? "").replace(/[^+\d]/g, "");
   return {
     em: email.trim() ? sha256(email.trim().toLowerCase()) : "",
     fn: firstName ? sha256(firstName.toLowerCase()) : "",
     ln: lastName ? sha256(lastName.toLowerCase()) : "",
+    ph: digits ? sha256(digits) : "",
   };
 }
 
-export async function sendCapiPurchase(sessionId: string, email: string, name: string) {
+export async function sendCapiPurchase(sessionId: string, email: string, name: string, phone = "") {
   const token = process.env.META_CONVERSATIONS_API_TOKEN ?? "";
   const PIXEL_ID = "3549766651863161";
   if (!token || !sessionId) return { ok: false, upstream: "not_configured" };
 
-  const hashed = hashCustomer(email, name);
+  const hashed = hashCustomer(email, name, phone);
   const user_data: Record<string, string> = {};
   if (hashed.em) user_data.em = hashed.em;
   if (hashed.fn) user_data.fn = hashed.fn;
   if (hashed.ln) user_data.ln = hashed.ln;
+  if (hashed.ph) user_data.ph = hashed.ph;
 
   const url = new URL(`https://graph.facebook.com/v21.0/${PIXEL_ID}/events`);
   url.searchParams.set("access_token", token);
@@ -125,7 +129,7 @@ export async function getStripeSession(sessionId: string) {
 
   const session: {
     payment_status?: string;
-    customer_details?: { email?: string; name?: string } | null;
+    customer_details?: { email?: string; name?: string; phone?: string } | null;
   } = await res.json();
 
   return session;

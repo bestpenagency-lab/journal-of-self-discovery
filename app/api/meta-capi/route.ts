@@ -37,6 +37,7 @@ export async function POST(request: Request) {
     em?: string;
     fn?: string;
     ln?: string;
+    ph?: string;
     test_event_code?: string;
   };
   try {
@@ -45,7 +46,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  const { event_name, event_id, value, currency, email, fbp, fbc, external_id, em, fn, ln, test_event_code } = body;
+  const { event_name, event_id, value, currency, email, fbp, fbc, external_id, em, fn, ln, ph, test_event_code } = body;
 
   if (!event_name || !ALLOWED_EVENTS.has(event_name) || !event_id) {
     return NextResponse.json({ ok: false, error: "invalid_event" }, { status: 400 });
@@ -66,6 +67,9 @@ export async function POST(request: Request) {
   }
   if (typeof ln === "string" && ln.trim()) {
     user_data.ln = ln.trim();
+  }
+  if (typeof ph === "string" && ph.trim()) {
+    user_data.ph = ph.trim();
   }
   if (typeof fbp === "string" && fbp.trim()) {
     user_data.fbp = fbp.trim();
