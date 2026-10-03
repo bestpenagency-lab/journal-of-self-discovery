@@ -18,64 +18,86 @@ declare global {
   }
 }
 
-function track(type: string, data?: unknown) {
+function track(type: string, data?: unknown, options?: { eventID?: string }) {
   if (typeof window.fbq === "function") {
-    window.fbq("track", type, data);
+    window.fbq("track", type, data, options);
+  }
+}
+
+function uid(prefix: string) {
+  const raw =
+    typeof crypto !== "undefined" && "randomUUID" in crypto
+      ? crypto.randomUUID()
+      : `${Date.now()}_${Math.random().toString(36).slice(2)}`;
+  return `${prefix}_${raw}`;
+}
+
+function getClientId() {
+  const KEY = "msl_client_id";
+  try {
+    let id = localStorage.getItem(KEY);
+    if (!id) {
+      id = uid("c");
+      localStorage.setItem(KEY, id);
+    }
+    return id;
+  } catch {
+    return "";
   }
 }
 
 const LEAD_KEY = "msl_pixel_lead";
 const PURCHASE_KEY = "msl_pixel_purchase";
 
+function relayEvent(payload: Record<string, unknown>) {
+  fetch("/api/meta-capi", {
+    method: "POST",
+    headers: {
+      "content-type": "application/json",
+      "x-relay-secret": process.env.NEXT_PUBLIC_META_CAPI_RELAY_SECRET ?? "",
+    },
+    body: JSON.stringify(payload),
+  }).catch(() => {});
+}
+
 export default function MetaPixel() {
   const pathname = usePathname();
   const firstRender = useRef(true);
 
   const fireLeadOnce = () => {
-    if (!sessionStorage.getItem(LEAD_KEY)) {
-      sessionStorage.setItem(LEAD_KEY, "1");
-      track("Lead");
-    }
+    if (sessionStorage.getItem(LEAD_KEY)) return;
+    sessionStorage.setItem(LEAD_KEY, "1");
+    const eventId = uid("l");
+
+    track("Lead", undefined, { eventID: eventId });
+    relayEvent({
+      event_name: "Lead",
+      event_id: eventId,
+      external_id: getClientId(),
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc"),
+    });
   };
 
   const firePurchaseOnce = () => {
     if (sessionStorage.getItem(PURCHASE_KEY)) return;
     sessionStorage.setItem(PURCHASE_KEY, "1");
-    const eventId =
-      typeof crypto !== "undefined" && "randomUUID" in crypto
-        ? crypto.randomUUID()
-        : `p_${Date.now()}`;
+    const eventId = uid("p");
 
-    if (typeof window.fbq === "function") {
-      window.fbq(
-        "track",
-        "Purchase",
-        { value: PURCHASE_VALUE, currency: "USD" },
-        { eventID: eventId }
-      );
-    }
-
-    fetch("/api/meta-capi", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "x-relay-secret": process.env.NEXT_PUBLIC_META_CAPI_RELAY_SECRET ?? "",
-      },
-      body: JSON.stringify({
-        event_name: "Purchase",
-        event_id: eventId,
-        value: PURCHASE_VALUE,
-        currency: "USD",
-        email: "",
-        fbp: getCookie("_fbp"),
-        fbc: getCookie("_fbc"),
-      }),
-    }).catch(() => {});
+    track("Purchase", { value: PURCHASE_VALUE, currency: "USD" }, { eventID: eventId });
+    relayEvent({
+      event_name: "Purchase",
+      event_id: eventId,
+      value: PURCHASE_VALUE,
+      currency: "USD",
+      email: "",
+      external_id: getClientId(),
+      fbp: getCookie("_fbp"),
+      fbc: getCookie("_fbc"),
+    });
   };
 
   useEffect(() => {
-    // The base code already fired PageView on init for the first route,
-    // so only fire the page-specific conversion events on mount.
     if (pathname === "/") fireLeadOnce();
     if (pathname === "/thank-you") firePurchaseOnce();
     // eslint-disable-next-line react-hooks/exhaustive-deps

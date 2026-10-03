@@ -33,6 +33,7 @@ export async function POST(request: Request) {
     email?: string;
     fbp?: string;
     fbc?: string;
+    external_id?: string;
     test_event_code?: string;
   };
   try {
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  const { event_name, event_id, value, currency, email, fbp, fbc, test_event_code } = body;
+  const { event_name, event_id, value, currency, email, fbp, fbc, external_id, test_event_code } = body;
 
   if (!event_name || !ALLOWED_EVENTS.has(event_name) || !event_id) {
     return NextResponse.json({ ok: false, error: "invalid_event" }, { status: 400 });
@@ -50,6 +51,9 @@ export async function POST(request: Request) {
   const user_data: Record<string, string> = {};
   if (typeof email === "string" && email.trim()) {
     user_data.em = sha256(email.trim().toLowerCase());
+  }
+  if (typeof external_id === "string" && external_id.trim()) {
+    user_data.external_id = sha256(external_id.trim().toLowerCase());
   }
   if (typeof fbp === "string" && fbp.trim()) {
     user_data.fbp = fbp.trim();
