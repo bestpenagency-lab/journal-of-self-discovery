@@ -30,7 +30,7 @@ export default function PricingCTA() {
               <span className="price-old">$29</span>
               <span className="price-new">$9.97</span>
             </div>
-            <p className="price-caption">Launch price · Limited availability</p>
+            <p className="price-caption">Limited-time price · Limited availability</p>
 
             <ul className="pricing-includes">
               {includes.map((item) => (

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Journal of Self-Discovery: Rewire Your Brain in 21 Days",
     description:
-      "Stop mental chaos. Gain clarity. Used by 6-7 figure coaching clients. Only $9.97 (Launch Price).",
+      "Stop mental chaos. Gain clarity. Used by 6-7 figure coaching clients. Only $9.97 (Limited-Time Price).",
     url: "https://mindshiftlabconsulting.com",
     siteName: "Mind Shift Lab",
     images: [
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Journal of Self-Discovery: Rewire Your Brain in 21 Days",
-    description: "Stop overthinking. Gain clarity in 21 days. $9.97 launch price.",
+    description: "Stop overthinking. Gain clarity in 21 days. $9.97 limited-time price.",
     images: ["/lucia-hero.jpg"],
   },
 };
