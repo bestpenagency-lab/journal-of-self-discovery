@@ -29,6 +29,7 @@ export default function HeroSection() {
             <span className="new-price">$9.97</span>
             <LaunchTimer />
           </div>
+          <p className="price-preview-note">Limited-time price · Goes back to $29</p>
 
           <a href={STRIPE_LINK} className="cta-btn" target="_blank" rel="noopener noreferrer">
             Buy Now: $9.97 →

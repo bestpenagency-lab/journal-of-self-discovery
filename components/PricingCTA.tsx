@@ -32,7 +32,7 @@ export default function PricingCTA() {
               <span className="price-new">$9.97</span>
             </div>
             <p className="price-caption pricing-caption-row">
-              <span>Limited-time price · Goes back to $29 when the timer ends</span>
+              <span>Limited-time price · Goes back to $29</span>
               <LaunchTimer compact />
             </p>
 
