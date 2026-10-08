@@ -1,4 +1,4 @@
-import { IconCheck } from "./Icons";
+import { IconCheck, IconShield } from "./Icons";
 import HeroVideo from "./HeroVideo";
 
 const STRIPE_LINK = "https://buy.stripe.com/7sYeVe3A41HublT20X9bO0a";
@@ -32,9 +32,21 @@ export default function HeroSection() {
           <a href={STRIPE_LINK} className="cta-btn" target="_blank" rel="noopener noreferrer">
             Buy Now: $9.97 →
           </a>
+
+          <div className="hero-guarantee">
+            <div className="hg-icon">
+              <IconShield size={30} color="var(--purple-primary)" strokeWidth={1.6} />
+            </div>
+            <div className="hg-text">
+              <span className="hg-title">21-Day Guarantee</span>
+              <span className="hg-sub">
+                Do the 21 days. Not satisfied? Free 1:1 session with Lucia. No
+                questions asked.
+              </span>
+            </div>
+          </div>
+
           <p className="guarantee-note">
-            <span className="note-item"><IconCheck size={16} color="var(--purple-primary)" /> 21-day money-back guarantee</span>
-            <span className="note-dot" />
             <span className="note-item"><IconCheck size={16} color="var(--purple-primary)" /> Instant digital delivery</span>
           </p>
         </div>
