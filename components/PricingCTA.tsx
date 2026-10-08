@@ -1,4 +1,5 @@
 import ScrollReveal from "./ScrollReveal";
+import LaunchTimer from "./LaunchTimer";
 import { IconCheck, IconLock } from "./Icons";
 
 const STRIPE_LINK = "https://buy.stripe.com/7sYeVe3A41HublT20X9bO0a";
@@ -30,7 +31,10 @@ export default function PricingCTA() {
               <span className="price-old">$29</span>
               <span className="price-new">$9.97</span>
             </div>
-            <p className="price-caption">Limited-time price · Limited availability</p>
+            <p className="price-caption pricing-caption-row">
+              <span>Limited-time price · Goes back to $29 when the timer ends</span>
+              <LaunchTimer compact />
+            </p>
 
             <ul className="pricing-includes">
               {includes.map((item) => (

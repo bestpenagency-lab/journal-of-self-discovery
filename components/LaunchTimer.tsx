@@ -8,7 +8,7 @@ function pad(n: number) {
   return n.toString().padStart(2, "0");
 }
 
-export default function LaunchTimer() {
+export default function LaunchTimer({ compact = false }) {
   const [seconds, setSeconds] = useState(START_SECONDS);
 
   useEffect(() => {
@@ -23,8 +23,13 @@ export default function LaunchTimer() {
   const s = seconds % 60;
 
   return (
-    <span className="launch-timer" role="timer">
-      <span className="launch-timer-label">Ends in</span>
+    <span
+      className={compact ? "launch-timer launch-timer--compact" : "launch-timer"}
+      role="timer"
+    >
+      {!compact && (
+        <span className="launch-timer-label">Ends in</span>
+      )}
       <span className="launch-timer-digits">
         {pad(h)}:{pad(m)}:{pad(s)}
       </span>
