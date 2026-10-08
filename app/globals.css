@@ -265,15 +265,28 @@ a {
   color: var(--purple-primary);
 }
 
-.launch-badge {
+.launch-timer {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
   background: var(--purple-primary);
   color: #fff;
   font-size: 0.7rem;
   font-weight: 700;
-  padding: 0.25rem 0.75rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 50px;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+}
+
+.launch-timer-label {
+  opacity: 0.92;
+}
+
+.launch-timer-digits {
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+  letter-spacing: 0.04em;
 }
 
 .guarantee-note {

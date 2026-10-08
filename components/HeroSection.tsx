@@ -1,5 +1,6 @@
 import { IconCheck, IconShield } from "./Icons";
 import HeroVideo from "./HeroVideo";
+import LaunchTimer from "./LaunchTimer";
 
 const STRIPE_LINK = "https://buy.stripe.com/7sYeVe3A41HublT20X9bO0a";
 
@@ -26,7 +27,7 @@ export default function HeroSection() {
           <div className="price-preview">
             <span className="old-price">$29</span>
             <span className="new-price">$9.97</span>
-            <span className="launch-badge">Launch Price</span>
+            <LaunchTimer />
           </div>
 
           <a href={STRIPE_LINK} className="cta-btn" target="_blank" rel="noopener noreferrer">
