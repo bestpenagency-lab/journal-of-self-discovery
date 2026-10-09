@@ -2,6 +2,7 @@ import { createHash } from "crypto";
 import { NextResponse } from "next/server";
 
 const PIXEL_ID = "3549766651863161";
+const SITE_URL = "https://journal.mindshiftlabconsulting.com";
 const ACCESS_TOKEN = process.env.META_CONVERSATIONS_API_TOKEN ?? "";
 const RELAY_SECRET = process.env.NEXT_PUBLIC_META_CAPI_RELAY_SECRET ?? "";
 
@@ -39,6 +40,7 @@ export async function POST(request: Request) {
     fn?: string;
     ln?: string;
     ph?: string;
+    event_source_url?: string;
     test_event_code?: string;
   };
   try {
@@ -47,7 +49,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "invalid_json" }, { status: 400 });
   }
 
-  const { event_name, event_id, value, currency, email, fbp, fbc, external_id, em, fn, ln, ph, test_event_code } = body;
+  const { event_name, event_id, value, currency, email, fbp, fbc, external_id, em, fn, ln, ph, event_source_url, test_event_code } = body;
 
   if (!event_name || !ALLOWED_EVENTS.has(event_name) || !event_id) {
     return NextResponse.json({ ok: false, error: "invalid_event" }, { status: 400 });
@@ -84,6 +86,10 @@ export async function POST(request: Request) {
     event_time: Math.floor(Date.now() / 1000),
     event_id,
     action_source: "website",
+    event_source_url:
+      typeof event_source_url === "string" && event_source_url.trim()
+        ? event_source_url.trim()
+        : SITE_URL,
     user_data,
     custom_data: {
       value: typeof value === "number" ? value : 0,

@@ -88,6 +88,7 @@ export async function sendCapiPurchase(sessionId: string, email: string, name: s
     event_time: Math.floor(Date.now() / 1000),
     event_id: purchaseEventId(sessionId),
     action_source: "website",
+    event_source_url: `${SITE_URL}/thank-you`,
     user_data,
     custom_data: {
       value: 9.97,

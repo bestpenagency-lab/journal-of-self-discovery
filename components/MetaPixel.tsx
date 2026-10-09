@@ -56,7 +56,11 @@ function relayEvent(payload: Record<string, unknown>) {
       "content-type": "application/json",
       "x-relay-secret": process.env.NEXT_PUBLIC_META_CAPI_RELAY_SECRET ?? "",
     },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      event_source_url:
+        typeof window !== "undefined" ? window.location.href : undefined,
+      ...payload,
+    }),
   }).catch(() => {});
 }
 

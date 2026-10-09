@@ -13,27 +13,6 @@ interface VerifyResult {
   userData?: { em?: string; fn?: string; ln?: string; ph?: string };
 }
 
-function getCookie(name: string) {
-  const match = document.cookie.match(
-    new RegExp("(?:^|; )" + name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "=([^;]*)")
-  );
-  return match ? decodeURIComponent(match[1]) : "";
-}
-
-function getClientId() {
-  const KEY = "msl_client_id";
-  try {
-    let id = localStorage.getItem(KEY);
-    if (!id) {
-      id = `c_${Date.now()}_${Math.random().toString(36).slice(2)}`;
-      localStorage.setItem(KEY, id);
-    }
-    return id;
-  } catch {
-    return "";
-  }
-}
-
 function firePurchase(result: VerifyResult) {
   const eventId = result.purchaseEventId;
   if (!eventId) return;
@@ -44,31 +23,9 @@ function firePurchase(result: VerifyResult) {
     sessionStorage.setItem(firedKey, "1");
   } catch {}
 
-  const payload: Record<string, unknown> = {
-    event_name: "Purchase",
-    event_id: eventId,
-    value: 9.97,
-    currency: "USD",
-    fbp: getCookie("_fbp"),
-    fbc: getCookie("_fbc"),
-    external_id: getClientId(),
-  };
-  if (result.userData?.em) payload.em = result.userData.em;
-  if (result.userData?.fn) payload.fn = result.userData.fn;
-  if (result.userData?.ln) payload.ln = result.userData.ln;
-  if (result.userData?.ph) payload.ph = result.userData.ph;
-
   if (typeof window.fbq === "function") {
     window.fbq("track", "Purchase", { value: 9.97, currency: "USD" }, { eventID: eventId });
   }
-  fetch("/api/meta-capi", {
-    method: "POST",
-    headers: {
-      "content-type": "application/json",
-      "x-relay-secret": process.env.NEXT_PUBLIC_META_CAPI_RELAY_SECRET ?? "",
-    },
-    body: JSON.stringify(payload),
-  }).catch(() => {});
 }
 
 type GateState =
