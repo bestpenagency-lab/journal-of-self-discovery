@@ -7,7 +7,6 @@ const ACCESS_TOKEN = process.env.META_CONVERSATIONS_API_TOKEN ?? "";
 const RELAY_SECRET = process.env.NEXT_PUBLIC_META_CAPI_RELAY_SECRET ?? "";
 
 const ALLOWED_EVENTS = new Set([
-  "Purchase",
   "Lead",
   "AddToCart",
   "InitiateCheckout",
