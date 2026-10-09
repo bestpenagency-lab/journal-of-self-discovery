@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { deliverToKit, sendCapiPurchase, signDownloadLink } from "@/lib/access";
 
 interface CheckoutEvent {
+  id?: string;
   type?: string;
   data?: {
     object?: {
@@ -12,6 +13,8 @@ interface CheckoutEvent {
     };
   };
 }
+
+const processedEvents = new Set<string>();
 
 function verifySignature(rawBody: string, signatureHeader: string | null) {
   const secret = process.env.STRIPE_WEBHOOK_SECRET ?? "";
@@ -55,6 +58,13 @@ export async function POST(request: Request) {
 
   if (event.type !== "checkout.session.completed") {
     return NextResponse.json({ ok: true, received: true, ignored: true });
+  }
+
+  if (event.id) {
+    if (processedEvents.has(event.id)) {
+      return NextResponse.json({ ok: true, received: true, duplicate: true });
+    }
+    processedEvents.add(event.id);
   }
 
   const session = event.data?.object ?? {};
