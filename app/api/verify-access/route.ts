@@ -20,8 +20,8 @@ export async function POST(request: Request) {
   }
 
   const sessionId = body.sessionId?.trim();
-  if (!sessionId) {
-    return NextResponse.json({ ok: false, error: "missing_session" }, { status: 400 });
+  if (!sessionId || !/^cs_(test|live)_[A-Za-z0-9]+$/.test(sessionId)) {
+    return NextResponse.json({ ok: false, error: "invalid_session" }, { status: 400 });
   }
 
   const session = await getStripeSession(sessionId);

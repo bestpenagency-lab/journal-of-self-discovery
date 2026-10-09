@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import { IconCheck, IconDownload, IconEnvelope } from "@/components/Icons";
 
 const PDF_FALLBACK = "/journal-of-self-discovery.pdf";
+const SESSION_RE = /^cs_(test|live)_[A-Za-z0-9]+$/;
 
 interface VerifyResult {
   ok: boolean;
@@ -41,7 +42,7 @@ export default function ThankYouGate() {
   const verify = useCallback(async () => {
     const sessionId = new URLSearchParams(window.location.search).get("session_id");
 
-    if (!sessionId) {
+    if (!sessionId || !SESSION_RE.test(sessionId)) {
       queueMicrotask(() => setState({ status: "missing", url: PDF_FALLBACK }));
       return;
     }
